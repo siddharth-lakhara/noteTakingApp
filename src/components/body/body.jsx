@@ -1,21 +1,40 @@
 import React from 'react';
 import './body.css';
+import Save from './save';
 
-class body extends React.Component {
+class Body extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       Characters: 0,
       color: "white",
       maxCharacters: props.maxTextLength,
+      titleText: "",
+      noteText: "",
     }
     this.handleChange = this.handleChange.bind(this);
+    this.titleChange = this.titleChange.bind(this);
   }
 
   handleChange(event) {
     const input = event.target.value;
     this.setState({
       Characters: input.length,
+      noteText: input,
+    });
+  }
+
+  titleChange(event) {
+    const input = event.target.value;
+    this.setState({
+      titleText: input,
+    });
+  }
+
+  clearContents() {
+    this.setState({
+      titleText: "",
+      noteText: "",
     });
   }
 
@@ -26,7 +45,7 @@ class body extends React.Component {
       <p className="noteTitle">
         Note Title
       </p>
-      <input type="text" className="tasks" placeholder="Tasks for today" />
+      <input type="text" className="tasks" onChange={this.titleChange} />
       <br />
       <br />
       <em> {this.props.emText} </em>
@@ -38,12 +57,14 @@ class body extends React.Component {
         Characters left: {this.state.maxCharacters - this.state.Characters}
       </p>
       <br />
-      <input type="button" className="saveNote" value="Save" />
-
-
+      <Save 
+        titleText={this.state.titleText} 
+        noteText={this.state.noteText}
+        call={this.clearContents}
+      />
     </div>
   )};
 
 };
 
-export default body;
+export default Body;

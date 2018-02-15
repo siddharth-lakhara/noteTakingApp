@@ -9,7 +9,7 @@ const App = () => (
     <HeaderComponent title="Note maker application" />
     <BodyComponent
       emText="Please type your note below"
-      maxTextLength={2}
+      maxTextLength={10}
       notePlaceholder="Your note here"
     />
     <FooterComponent
