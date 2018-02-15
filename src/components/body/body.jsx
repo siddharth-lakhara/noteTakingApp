@@ -5,26 +5,22 @@ class body extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      leftCharacters: 2,
-    };
+      Characters: 0,
+      color: "white",
+      maxCharacters: props.maxTextLength,
+    }
     this.handleChange = this.handleChange.bind(this);
-  }
-
-  changeColor() {
-    this.setState({
-      color: 'red',
-    });
   }
 
   handleChange(event) {
     const input = event.target.value;
     this.setState({
-      leftCharacters: 2 - input.length,
-      color: (this.state.leftCharacters <= 0) ? 'red' : 'white',
+      Characters: input.length,
     });
   }
 
   render() {
+   const color = ((this.state.Characters) === this.state.maxCharacters) ? 'red' : 'white';
   return (
     <div className="contentPane">
       <p className="noteTitle">
@@ -36,10 +32,10 @@ class body extends React.Component {
       <em> {this.props.emText} </em>
       <br />
       <br />
-      <input type="text" className="notes" placeholder={this.props.notePlaceholder} maxLength={this.props.maxTextLength} onChange={this.handleChange} style={{ backgroundColor: this.state.color }} />
+      <input type="text" className="notes" placeholder={this.props.notePlaceholder} maxLength={this.props.maxTextLength} onChange={this.handleChange} style={{backgroundColor: color}} />
       <br />
       <p>
-        Characters left: {this.state.leftCharacters}, {this.state.color};
+        Characters left: {this.state.maxCharacters - this.state.Characters}
       </p>
       <br />
       <input type="button" className="saveNote" value="Save" />
