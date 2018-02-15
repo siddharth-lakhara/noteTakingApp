@@ -1,3 +1,5 @@
 .bottomClass {
-    align-items: flex-end;
+    background-color: grey;
+    height: 100px;
+    font-size: 50px;
 }

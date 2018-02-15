@@ -1,11 +1,17 @@
 .contentPane {
     display:flex;
     flex-direction: column;
-    flex-grow: 1;
     justify-content: space-between;
+    align-items: center;
     text-align: center;
+    font-size: 25px;
+    box-sizing: content-box;
 }
 
-.contentPane * {
-    height: 100%;
+.tasks {
+    width: 50%;
+}
+
+.notes {
+    width: 75%;
 }

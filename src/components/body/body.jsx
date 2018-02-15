@@ -14,6 +14,7 @@ class Body extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.titleChange = this.titleChange.bind(this);
+    this.clearContents = this.clearContents.bind(this);
   }
 
   handleChange(event) {
@@ -33,6 +34,8 @@ class Body extends React.Component {
 
   clearContents() {
     this.setState({
+      Characters: 0,
+      color: "white",
       titleText: "",
       noteText: "",
     });
@@ -45,13 +48,13 @@ class Body extends React.Component {
       <p className="noteTitle">
         Note Title
       </p>
-      <input type="text" className="tasks" onChange={this.titleChange} />
+      <input type="text" className="tasks" value={this.state.titleText} onChange={this.titleChange} />
       <br />
       <br />
       <em> {this.props.emText} </em>
       <br />
       <br />
-      <input type="text" className="notes" placeholder={this.props.notePlaceholder} maxLength={this.props.maxTextLength} onChange={this.handleChange} style={{backgroundColor: color}} />
+      <input type="text" className="notes" value={this.state.noteText} placeholder={this.props.notePlaceholder} maxLength={this.props.maxTextLength} onChange={this.handleChange} style={{backgroundColor: color}} />
       <br />
       <p>
         Characters left: {this.state.maxCharacters - this.state.Characters}
@@ -60,7 +63,9 @@ class Body extends React.Component {
       <Save 
         titleText={this.state.titleText} 
         noteText={this.state.noteText}
-        call={this.clearContents}
+        clearContent = {this.clearContents}
+        changeState= {this.props.changeState}
+        updateNoteStorage={this.props.updateNoteStorage}
       />
     </div>
   )};
