@@ -11,8 +11,8 @@ class Body extends React.Component {
       Characters: 0,
       color: 'white',
       maxCharacters: props.maxTextLength,
-      titleText: '',
-      noteText: '',
+      titleText: this.props.titleText,
+      noteText: this.props.noteText,
     };
     this.handleChange = this.handleChange.bind(this);
     this.titleChange = this.titleChange.bind(this);
@@ -34,6 +34,7 @@ class Body extends React.Component {
 
   titleChange(event) {
     const input = event.target.value;
+
     this.setState({
       titleText: input,
     });
@@ -43,9 +44,8 @@ class Body extends React.Component {
     this.setState({
       Characters: 0,
       color: 'white',
-      titleText: '',
-      noteText: '',
     });
+    this.props.clearContents();
   }
 
   render() {
@@ -54,7 +54,7 @@ class Body extends React.Component {
         <p className="noteTitle">
         Note Title
         </p>
-        <input type="text" className="tasks" value={this.state.titleText} onChange={this.titleChange} />
+        <input type="text" className="tasks" value={this.state.titleText} onChange={this.titleChange} placeholder={this.props.titlePlaceHolder} />
         <br />
         <br />
         <em> {this.props.emText} </em>
@@ -72,6 +72,7 @@ class Body extends React.Component {
           clearContent={this.clearContents}
           changeState={this.props.changeState}
           updateNoteStorage={this.props.updateNoteStorage}
+          noteId={this.props.noteId}
         />
       </div>
     );
@@ -82,8 +83,13 @@ Body.propTypes = {
   maxTextLength: PropTypes.number.isRequired,
   emText: PropTypes.string.isRequired,
   notePlaceholder: PropTypes.string.isRequired,
+  titlePlaceHolder: PropTypes.string.isRequired,
   changeState: PropTypes.func.isRequired,
   updateNoteStorage: PropTypes.func.isRequired,
+  noteId: PropTypes.number.isRequired,
+  titleText: PropTypes.string.isRequired,
+  noteText: PropTypes.string.isRequired,
+  clearContents: PropTypes.func.isRequired,
 };
 
 export default Body;

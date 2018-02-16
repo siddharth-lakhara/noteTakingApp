@@ -1,51 +1,44 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './history.css';
+import ShowNotes from './showNotes';
 
 class History extends React.Component {
   constructor(props) {
     super(props);
-    this.goBack = this.goBack.bind(this);
+    this.changeState = this.changeState.bind(this);
+    this.editNotes = this.editNotes.bind(this);
   }
 
-  goBack() {
-    this.props.changeState();
+  editNotes(event) {
+    const key = event.target.id;
+    this.props.editNotes(key);
+    this.props.changeState(2);
+  }
+
+  changeState() {
+    this.props.changeState(1);
   }
 
   render() {
     return (
       <div className="historyBody" >
-        {this.props.noteStorage.map(elem => (
-          <div>
-            <div className="notesTitle">
-              <strong>Title: </strong>
-              {elem.title}
-            </div>
-            <div className="notesMessage">
-              {elem.message}
-            </div>
-          </div>
-          ))}
+        <ShowNotes
+          noteStorage={this.props.noteStorage}
+          editNotes={this.editNotes}
+        />
         <div className="goBackButton">
-          <input type="button" value="Create Another notes" onClick={this.goBack} />
+          <input type="button" value="Create Another notes" onClick={this.changeState} />
         </div>
       </div>
     );
   }
 }
 
-export default History;
+History.propTypes = {
+  changeState: PropTypes.func.isRequired,
+  noteStorage: PropTypes.array.isRequired,
+  editNotes: PropTypes.func.isRequired,
+};
 
-// EDITED
-// {
-//   this.props.noteStorage.map((title, message) => (
-//     <div>
-//       <div className="notesTitle">
-//         <strong>Title: </strong>
-//         {title}
-//       </div>
-//       <div className="notesMessage">
-//         {message}
-//       </div>
-//     </div>
-//   ))
-// }
+export default History;

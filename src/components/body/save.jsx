@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Save extends React.Component {
   constructor(props) {
@@ -7,12 +8,13 @@ class Save extends React.Component {
   }
 
   saveNote() {
+    const key = this.props.noteId;
     const title = this.props.titleText;
     const message = this.props.noteText;
-    const noteObject = { title, message };
+    const noteObject = { key, title, message };
     this.props.clearContent();
     this.props.updateNoteStorage(noteObject);
-    this.props.changeState();
+    this.props.changeState(0);
   }
 
   render() {
@@ -22,4 +24,12 @@ class Save extends React.Component {
   }
 }
 
+Save.propTypes = {
+  titleText: PropTypes.string.isRequired,
+  noteText: PropTypes.string.isRequired,
+  clearContent: PropTypes.func.isRequired,
+  changeState: PropTypes.func.isRequired,
+  updateNoteStorage: PropTypes.func.isRequired,
+  noteId: PropTypes.number.isRequired,
+};
 export default Save;
