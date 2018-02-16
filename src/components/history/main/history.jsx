@@ -1,5 +1,5 @@
 import React from 'react';
-import PrintOutput from './print';
+import './history.css';
 
 class History extends React.Component {
   constructor(props) {
@@ -12,14 +12,21 @@ class History extends React.Component {
   }
 
   render() {
-    // console.log(this.printNotes());
     return (
       <div className="historyBody" >
-        <div className="notesTitle">
-          <pre> <PrintOutput notes={this.props.noteStorage} /> </pre>
-        </div>
+        {this.props.noteStorage.map(elem => (
+          <div>
+            <div className="notesTitle">
+              <strong>Title: </strong>
+              {elem.title}
+            </div>
+            <div className="notesMessage">
+              {elem.message}
+            </div>
+          </div>
+          ))}
         <div className="goBackButton">
-          <input type="button" value="Go Back" onClick={this.goBack} />
+          <input type="button" value="Create Another notes" onClick={this.goBack} />
         </div>
       </div>
     );
@@ -27,3 +34,18 @@ class History extends React.Component {
 }
 
 export default History;
+
+// EDITED
+// {
+//   this.props.noteStorage.map((title, message) => (
+//     <div>
+//       <div className="notesTitle">
+//         <strong>Title: </strong>
+//         {title}
+//       </div>
+//       <div className="notesMessage">
+//         {message}
+//       </div>
+//     </div>
+//   ))
+// }

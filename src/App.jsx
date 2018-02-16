@@ -13,6 +13,7 @@ class App extends React.Component {
     this.state = {
       addNotes: 1,
       noteStorage: [],
+      id: 1,
     };
     this.changeState = this.changeState.bind(this);
     this.updateNoteStorage = this.updateNoteStorage.bind(this);
@@ -20,18 +21,17 @@ class App extends React.Component {
 
   updateNoteStorage(newNotesArray) {
     this.setState({
-      noteStorage: [...this.state.noteStorage, [newNotesArray]],
-    }, ()=>{
-      console.log(this.state.noteStorage);
+      noteStorage: [...this.state.noteStorage, newNotesArray],
+      id: this.state.id + 1,
     });
   }
 
-  changeState(){
-    const newState = (this.state.addNotes)^1;
+  changeState() {
+    const newState = (this.state.addNotes) ^ 1;
     this.setState({
       addNotes: newState,
-    })
-  };
+    });
+  }
 
   render() {
     if (this.state.addNotes) {
@@ -40,10 +40,11 @@ class App extends React.Component {
           <HeaderComponent title="Note maker application" />
           <BodyComponent
             emText="Please type your note below"
-            maxTextLength={100}
+            maxTextLength={5}
             notePlaceholder="Your note here"
             changeState={this.changeState}
             updateNoteStorage={this.updateNoteStorage}
+            noteId={this.state.id}
           />
           <FooterComponent
             text="About Us"
@@ -55,12 +56,9 @@ class App extends React.Component {
     return (
       <div className="App">
         <HeaderComponent title="Note History" />
-        <History 
+        <History
           changeState={this.changeState}
           noteStorage={this.state.noteStorage}
-        />
-        <FooterComponent
-          text="About Us"
         />
       </div>
     );
